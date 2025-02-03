@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT Grader</title>
+    <link href="static/style.css" rel="stylesheet">
+</head>
+<body>
+    <h1>PPT Grader</h1>
+    <div class="upload-section">
+        <label for="pptFile">Upload Your PPT:</label>
+        <input type="file" id="pptFile" accept=".pptx">
+        <button onclick="uploadFile()">Grade</button>
+    </div>
+    <div id="result">
+        <h2>Grading Report</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Criteria</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="resultTable"></tbody>
+        </table>
+    </div>
+    <script src="static/script.js"></script>
+</body>
+</html>

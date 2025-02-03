@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT Grader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .upload-section {
+            margin: 20px auto;
+        }
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>PPT Grader</h1>
+    <div class="upload-section">
+        <label for="pptFile">Upload Your PPT:</label>
+        <input type="file" id="pptFile" accept=".pptx">
+        <button onclick="uploadFile()">Grade</button>
+    </div>
+    <div id="result">
+        <h2>Grading Report</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Criteria</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="resultTable"></tbody>
+        </table>
+    </div>
+    <script>
+        function uploadFile() {
+            const fileInput = document.getElementById('pptFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please upload a PPT file.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('ppt', file);
+
+            fetch('http://localhost:5000/grade', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(response => {
+    if (!response.ok) {
+        throw new Error('Error grading the PPT');
+    }
+    return response.json();
+                    const resultTable = document.getElementById('resultTable');
+                    resultTable.innerHTML = '';
+
+                    Object.entries(data.scores).forEach(([criteria, score]) => {
+                        resultTable.innerHTML += `
+                            <tr>
+                                <td>${criteria}</td>
+                                <td>${score}</td>
+                            </tr>
+                        `;
+                    });
+
+                    document.getElementById('result').style.display = 'block';
+                })
+                .catch(err => {
+                    alert('Error: ' + error.message);
+                    console.error(err);
+                });
+        }
+    </script>
+</body>
+</html>
